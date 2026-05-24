@@ -32,3 +32,11 @@ Baseline structure is complete:
 - tests
 - dependency file
 - README
+
+## Quality Signals
+
+- GitHub Actions pytest workflow
+- risk and roadmap notes in [docs/risk-and-roadmap.md](docs/risk-and-roadmap.md)
+- deterministic strategy function with tests
+
+This is an engineering practice project, not a real trading system.
