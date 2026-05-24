@@ -1,6 +1,6 @@
 # Tradingbot
 
-A Python starter project for experimenting with rule-based trading signals.
+A Python practice project for moving-average signals, deterministic long-only backtesting, and risk-aware engineering habits.
 
 ## Structure
 
@@ -23,20 +23,22 @@ pytest
 python main.py
 ```
 
-## Status
+## Implemented Scope
 
-Baseline structure is complete:
-
-- strategy module
+- moving-average buy/sell/hold signal
+- defensive validation for invalid inputs
+- deterministic long-only backtest
+- final cash, position, equity, trade count, and return percentage metrics
 - command-line entry point
-- tests
+- pytest coverage for signal and backtest behavior
 - dependency file
-- README
 
 ## Quality Signals
 
 - GitHub Actions pytest workflow
 - risk and roadmap notes in [docs/risk-and-roadmap.md](docs/risk-and-roadmap.md)
-- deterministic strategy function with tests
+- deterministic strategy and backtest functions with tests
 
-This is an engineering practice project, not a real trading system.
+## Current Limitation
+
+This is an engineering practice project, not a real trading system. It does not connect to a broker, use live market data, model slippage, or provide financial advice.
