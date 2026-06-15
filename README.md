@@ -37,6 +37,7 @@ python main.py
 
 - GitHub Actions pytest workflow
 - risk and roadmap notes in [docs/risk-and-roadmap.md](docs/risk-and-roadmap.md)
+- backtest evidence plan in [docs/BACKTEST_EVIDENCE_PLAN.md](docs/BACKTEST_EVIDENCE_PLAN.md)
 - deterministic strategy and backtest functions with tests
 
 ## Current Limitation
