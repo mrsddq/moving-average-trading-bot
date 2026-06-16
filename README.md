@@ -1,4 +1,4 @@
-# Tradingbot
+# Moving Average Trading Bot
 
 A Python practice project for moving-average signals, deterministic long-only backtesting, and risk-aware engineering habits.
 
