@@ -22,6 +22,26 @@ def test_backtest_returns_summary_metrics():
     assert result.final_equity > 0
 
 
+def test_backtest_accounts_for_transaction_costs():
+    prices = [100, 101, 102, 103, 104, 99]
+    no_cost = backtest_moving_average(prices, short_window=2, long_window=4, transaction_cost=0)
+    with_cost = backtest_moving_average(prices, short_window=2, long_window=4, transaction_cost=2)
+
+    assert with_cost.final_equity < no_cost.final_equity
+
+
+def test_flat_prices_do_not_trade():
+    result = backtest_moving_average([100, 100, 100, 100, 100], short_window=2, long_window=4)
+
+    assert result.trades == 0
+    assert result.return_pct == 0
+
+
 def test_signal_rejects_invalid_windows():
     with pytest.raises(ValueError):
         moving_average_signal([1, 2, 3], short_window=4, long_window=4)
+
+
+def test_signal_rejects_non_positive_prices():
+    with pytest.raises(ValueError, match="positive"):
+        moving_average_signal([100, 0, 101], short_window=1, long_window=2)

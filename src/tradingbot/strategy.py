@@ -20,6 +20,8 @@ def moving_average_signal(prices, short_window=3, long_window=5):
         raise ValueError("short_window must be smaller than long_window")
     if not prices:
         raise ValueError("prices must not be empty")
+    if any(price <= 0 for price in prices):
+        raise ValueError("prices must all be positive")
     if len(prices) < long_window:
         return "hold"
 
@@ -33,12 +35,22 @@ def moving_average_signal(prices, short_window=3, long_window=5):
     return "hold"
 
 
-def backtest_moving_average(prices, short_window=3, long_window=5, starting_cash=10000.0):
+def backtest_moving_average(
+    prices,
+    short_window=3,
+    long_window=5,
+    starting_cash=10000.0,
+    transaction_cost=0.0,
+):
     """Run a deterministic long-only backtest with one-share position sizing."""
     if starting_cash <= 0:
         raise ValueError("starting_cash must be positive")
+    if transaction_cost < 0:
+        raise ValueError("transaction_cost must be non-negative")
     if not prices:
         raise ValueError("prices must not be empty")
+    if any(price <= 0 for price in prices):
+        raise ValueError("prices must all be positive")
 
     cash = float(starting_cash)
     position = 0
@@ -49,12 +61,12 @@ def backtest_moving_average(prices, short_window=3, long_window=5, starting_cash
         price = visible_prices[-1]
         signal = moving_average_signal(visible_prices, short_window, long_window)
 
-        if signal == "buy" and position == 0 and cash >= price:
-            cash -= price
+        if signal == "buy" and position == 0 and cash >= price + transaction_cost:
+            cash -= price + transaction_cost
             position = 1
             trades += 1
         elif signal == "sell" and position == 1:
-            cash += price
+            cash += price - transaction_cost
             position = 0
             trades += 1
 
