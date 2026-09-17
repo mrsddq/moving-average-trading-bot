@@ -1,39 +1,16 @@
-﻿# Engineering Runbook
+# Offline simulator verification
 
-## Repository Profile
-
-- Repository: $repoName
-- Classification: Python project
-- Tracked files: 9
-- Python files: 4
-- JavaScript/TypeScript files: 0
-- Notebooks: 0
-- Terraform files: 0
-
-## Setup
-
-``bash
+```bash
 python -m pip install -r requirements.txt
-``
+make test
+python main.py
+```
 
-## Verification
+Regression tests enforce next-bar execution, finite positive prices, integer
+window sizes, finite cash/fees, affordability, and exact two-sided fee accounting.
+They also cover short series, where no trades execute but all inputs still need
+validation. The final open position is marked to market without an invented exit.
 
-``bash
-python -m unittest discover -s tests
-python -m compileall -q .
-``
-
-## Release Hygiene
-
-- Keep generated outputs, caches, local datasets, virtual environments, and dependency folders out of git.
-- Prefer deterministic commands over manual notebook or console-only steps.
-- Document required secrets and environment variables instead of committing them.
-- Keep Dockerfiles, CI workflows, and tests aligned with the actual project stack.
-- Treat learning or reference material honestly as reference material; do not present it as production service code unless it has service-grade tests, deployment, and operations docs.
-
-## Maintenance Checklist
-
-- Review dependencies quarterly.
-- Run tests before every push.
-- Confirm git status --short is clean before packaging.
-- Include .git only when an external submission explicitly requires repository history.
+No test contacts a broker, downloads market data, or sends orders. Main prints
+synthetic example results. Real strategy research would require sourced data,
+market calendars, spread/slippage assumptions, and an out-of-sample protocol.
