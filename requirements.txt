@@ -1,2 +1,2 @@
-pandas==2.2.2
+# The simulator uses only the Python standard library; pytest is for development.
 pytest==8.3.2
